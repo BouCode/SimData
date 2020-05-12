@@ -69,7 +69,7 @@ void loop () {
   String temp2 = String (temperatura2);
   String hum2 = String (humedad2);
   
-  String convertJSON = String ("{" + NODO + ":{\"data\": [" + temp1 + "," + hum1 + "]" + "[" + temp2 + "," + hum2 + "]}}");
+  String convertJSON = String ("{" + NODO + ":{\"data\": [[" + temp1 + "," + hum1 + "]," + "[" + temp2 + "," + hum2 + "]]}}");
   Serial.println (convertJSON);
   client.loop();
   if (!client.connected()) {
