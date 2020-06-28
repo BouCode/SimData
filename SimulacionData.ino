@@ -7,6 +7,7 @@ int temperatura1;
 int temperatura2;
 int humedad1;
 int humedad2;
+int salida = 2;
 
 const char ssid[] = "MOVISTAR_3D70";
 const char pass[] = "9CyTCP6ZEDftPmgSs9xb";
@@ -33,7 +34,7 @@ void connect() {
 
   Serial.println("\nconnected!");
 
-  client.subscribe("/hello");
+  client.subscribe("/switch");
   // client.unsubscribe("/hello");
 }
 
@@ -47,6 +48,8 @@ void messageReceived(String &topic, String &payload) {
 }
 
 void setup () {
+  pinMode (salida, OUTPUT);
+  
   Serial.begin(115200);
   WiFi.begin(ssid, pass);
   // Note: Local domain names (e.g. "Computer.local" on OSX) are not supported
@@ -86,3 +89,12 @@ void loop () {
   }
   delay (t1);
 } 
+
+void messageReceived(String payload) {
+  if (payload == "Encendido"){
+    digitalWrite (salida, HIGH);
+  }
+  if (payload == "Apagado"){
+    digitalWrite (salida, LOW);
+  }
+}
